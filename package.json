@@ -1,0 +1,19 @@
+{
+  "name": "pfgen",
+  "version": "0.0.1",
+  "description": "A simple set of tools for building Pathfinder RPG characters.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xuroth/pfgen.git"
+  },
+  "author": "Xuroth",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Xuroth/pfgen/issues"
+  },
+  "homepage": "https://github.com/Xuroth/pfgen#readme"
+}
