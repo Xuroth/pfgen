@@ -1,0 +1,55 @@
+<h2>Influential Associates</h2>
+<div class="card">
+    <div class="card-body">
+        <ul class="list-group">
+            {{#if associates}}
+                {{#each associates as |associate|}}
+                <li class="list-group-item">
+                    <div class="assocWeight">{{associate.weight}}</div>
+                    <div class="assocName">{{associate.title}}</div>
+                    <div class="assocDesc">{{associate.description}}</div>
+                </li>
+                {{/each}}
+            
+            {{else}}
+                <li class="list-group-item">No Influential Associates!</li>
+            {{/if}}
+            <li class="list-group-item"><button class="btn btn-block btn-primary" id="addAssoc"><i class="far fa-plus"></i> Add Associate</button></li>
+        </ul>
+        <ul class="list-group">
+            <form id="addedAssocs"></form>
+        </ul>
+        <button class="invisible btn btn-success" id="assocSave" onclick="saveAssocs()">Save</button>
+    </div>
+</div>
+
+{{#extend "js"}}
+<script>
+    var assocCount = 0;
+    $('#addAssoc').on('click', function() {
+        addRow();
+    });
+    function addRow() {
+        assocCount++;
+        html = `<li class="list-group-item addedAssocs" id="addedAssoc_${assocCount}">
+                    <div class="assocWeight"><input type="number" min="1" name="weight" placeholder="weight"></div>
+                    <div class="assocName"><input type="text" name="title" placeholder="Title"></div>
+                    <div class="assocDesc"><input type="text" name="description" placeholder="Description"></div>
+                    <button type="button" class="close" onclick="deleteRow(${assocCount})">&times;</button>
+                </li>`;
+        $('#addedAssocs').append(html);
+        $(`#addedAssoc_${assocCount} div.assocWeight input`).focus();
+        $('#assocSave').removeClass('invisible');
+    }
+
+    function deleteRow(id){
+        $(`#addedAssoc_${id}`).remove();
+    }
+
+    function saveAssocs() {
+        data = new FormData($('#addedAssocs')[0]);
+        console.log(data);
+    }
+</script>
+{{/extend}}
+

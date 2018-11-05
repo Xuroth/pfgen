@@ -1,0 +1,63 @@
+<h2>New Class</h2>
+<hr>
+<a href="/admin/classes" class="btn btn-default"><i class="far fa-arrow-left"></i> Classes</a>
+<div class="card">
+    <div class="card-body">
+        <form action="/admin/classes/new" method="POST">
+            <h4>Basic Info</h4>
+            <hr>
+            <input type="text" name="name" id="name" placeholder="Name" class="form-control">
+            <select name="type" id="type" class="form-control">
+                <option value="core">Core</option>
+                <option value="base">Base</option>
+                <option value="aleternate">Alternate</option>
+                <option value="hybrid">Hybrid</option>
+                <option value="unchained">Unchained</option>
+                <option value="occult">Occult</option>
+                <option value="prestige">Prestige</option>
+            </select>
+            {{#if errors}}
+                {{#each errors as |error|}}
+                <p>{{error.msg}}</p>
+                {{/each}}
+            {{/if}}
+            <br><br>
+            <h4>Backgrounds</h4>
+            <hr>
+            <div id="backgrounds">
+
+            </div>
+            <button type="button" onclick="addBackgroundBox()" class="btn btn-outline-dark">Add Background option</button>
+
+        
+            <button id="newRaceSubmit" type="submit" class="btn btn-primary"><i class="far fa-plus"></i> Add Class</button>
+        </form>
+    </div>
+</div>
+<div style="margin-bottom:200px;"></div>
+{{#extend "js"}}
+<script>
+    var backgroundBoxCount = 0;
+
+    $('#newRaceSubmit').on('click', (e) => {
+        //e.preventDefault();
+        
+    })
+    function addBackgroundBox(){
+        backgroundBoxCount++;
+        let backBox = $('#backgrounds');
+        $(backBox).append(`<div class="backgroundBox card" id="background_${backgroundBoxCount}"><div class="card-body">
+            <button type="button" onclick="deleteBackgroundBox(this)" class="close">&times;</button> <br><br>
+            <input type="number" min="0" name="backgrounds[${backgroundBoxCount}][weight]" id="weight" class="form-control" placeholder="Weight" value="10">
+            <input type="text" placeholder="Title" name="backgrounds[${backgroundBoxCount}][title]" id="title" class="form-control">
+            <input type="text" placeholder="Description" name="backgrounds[${backgroundBoxCount}][description]" id="description" class="form-control">
+            
+        </div></div><br>`);
+        //document.getElementById('backgrounds').appendChild(backBox);
+    }
+
+    function deleteBackgroundBox(e){
+        $(e.parentElement.parentElement).remove();
+    }
+</script>
+{{/extend}}

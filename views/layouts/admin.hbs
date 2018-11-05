@@ -2,26 +2,21 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>PF Gen</title>
+        <title>Admin: PF Gen</title>
         <link rel="stylesheet" href="/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/fontawesome-all.min.css">
         <link rel="stylesheet" href="/css/master.css">
     </head>
     <body>
-        {{> navigation }}
+        {{> adminNav }}
         {{> messages }}
-        <div class="container-fluidz">
+        <div class="container">
             {{{body}}}
         </div>
         
         {{!-- <h4>Layout</h4> --}}
         <script src="/js/jquery-3.3.1.min.js"></script>
         <script src="/js/bootstrap.bundle.min.js"></script>
-        <script>
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip()
-            })
-        </script>
         {{{block "js"}}}
             {{!-- Custom Scripts --}}
         

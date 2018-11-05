@@ -1,0 +1,84 @@
+<h2>New Race</h2>
+<hr>
+<a href="/admin/races" class="btn btn-default"><i class="far fa-arrow-left"></i> Races</a>
+<div class="card">
+    <div class="card-body">
+        <form action="/admin/races/new" method="POST">
+            <h4>Basic Info</h4>
+            <hr>
+            <input type="text" name="name" id="name" placeholder="Name" class="form-control">
+            <select name="type" id="type" class="form-control">
+                <option value="core">Core</option>
+                <option value="featured">Featured</option>
+                <option value="uncommon">Uncommon</option>
+                <option value="standard">Standard</option>
+                <option value="advanced">Advanced</option>
+                <option value="monsterous">Monsterous</option>
+                <option value="vp">Very Powerful</option>
+                <option value="urp">Unknown Race Points</option>
+                <option value="other">Other</option>
+            </select>
+            {{#if errors}}
+                {{#each errors as |error|}}
+                <p>{{error.msg}}</p>
+                {{/each}}
+            {{/if}}
+            <input type="text" name="description" placeholder="Description" class="form-control">
+            <br><br>
+            <h4>Character Generation Options</h4>
+            <hr>
+            <h5>Homelands</h5>
+            <div id="homelands">
+
+            </div>
+            <button type="button" onclick="addBox('homelands')" class="btn btn-outline-dark">Add Homelands Option</button>
+            <h5>Parents</h5>
+            <div id="parents">
+
+            </div>
+            <button type="button" onclick="addBox('parents')" class="btn btn-outline-dark">Add Parents Option</button>
+            <h5>Siblings</h5>
+            <div id="siblings">
+
+            </div>
+            <button type="button" onclick="addBox('siblings')" class="btn btn-outline-dark">Add Siblings Option</button>
+            <button id="newClassSubmit" type="submit" class="btn btn-primary"><i class="far fa-plus"></i> Add Race</button>
+        </form>
+    </div>
+</div>
+{{#extend "js"}}
+<script>
+    var boxCount = {
+        homelands: 0,
+        parents: 0,
+        siblings: 0
+    };
+
+    function addBox(type){
+        boxCount[type]++;
+        let backBox = $(`#${type}`);
+        if(type == 'homelands'){
+            $(backBox).append(`<div class="${type}Box card" id="${type}_${boxCount[type]}"><div class="card-body">
+            <button type="button" onclick="deleteBox(this)" class="close">&times;</button> <br><br>
+            <input type="number" min="0" name="chargen[${type}][${boxCount[type]}][weight]" id="weight" class="form-control" placeholder="Weight">
+            <input type="text" placeholder="Title" name="chargen[${type}][${boxCount[type]}][title]" id="title" class="form-control">
+            <input type="text" placeholder="Description" name="chargen[${type}][${boxCount[type]}][description]" id="description" class="form-control">
+            
+        </div></div><br>`);
+        } else {
+            $(backBox).append(`<div class="${type}Box card" id="${type}_${boxCount[type]}"><div class="card-body">
+            <button type="button" onclick="deleteBox(this)" class="close">&times;</button> <br><br>
+            <input type="number" min="0" name="chargen[${type}][${boxCount[type]}][weight]" id="weight" class="form-control" placeholder="Weight">
+            <input type="text" placeholder="Description" name="chargen[${type}][${boxCount[type]}][description]" id="description" class="form-control">
+            
+        </div></div><br>`);
+        }
+        
+        //document.getElementById('backgrounds').appendChild(backBox);
+    }
+
+    function deleteBox(e){
+        $(e.parentElement.parentElement).remove();
+    }
+</script>
+{{/extend}}

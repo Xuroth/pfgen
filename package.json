@@ -17,8 +17,13 @@
   },
   "homepage": "https://github.com/Xuroth/pfgen#readme",
   "dependencies": {
+    "cors": "^2.8.4",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
-    "handlebars-extend-block": "^1.0.0"
+    "express-session": "^1.15.6",
+    "express-validator": "^5.2.0",
+    "handlebars-extend-block": "^1.0.0",
+    "mongodb": "^3.1.0-beta4",
+    "q": "^1.5.1"
   }
 }

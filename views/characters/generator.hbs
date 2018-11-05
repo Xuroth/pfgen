@@ -1,0 +1,246 @@
+<div class="container-fluid text-light">
+    <h1>Random Background Generator</h1>
+    <hr>
+    <div class="row">
+        <div class="col-md-3">
+            <h3>Options</h3>
+            <form id="charGenOptions">
+                <div class="form-group">
+                    <label for="race">Race</label>
+                    <select name="race" id="race" class="form-control">
+                        <option value="random">Random</option>
+                        {{#each races as |race|}}
+                            <option value="{{race.name}}">{{race.name}}</option>
+                        {{/each}}                    
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="class">Class</label>
+                    <select name="class" id="class" class="form-control">
+                        <option value="random">Random</option>
+                        {{#each classes as |class|}}
+                            <option value="{{class.name}}">{{class.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" id="generatorSubmit"><i class="far fa-dice"></i> Generate</button>
+            </form>
+        </div>
+        <div class="col-md-6" id="output">
+            <div class="column text-dark">
+                <div class="loader alert alert-success invisible" id="loader">
+                    <i class="far fa-spinner fa-spin"></i> Rolling Dice
+                </div>
+                <div id="outputBox" class="invisible">
+                    <div id="scrollTo"></div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 id="outputTitle" class="charData card-title"></h3>
+                            <hr>
+                            <h4>Bio</h4>
+                            <p>
+                                Gender: <span id="gender" class="charData"></span><br>
+                                Age: <span id="age" class="charData"></span><br>
+                                Height: <span id="height" class="charData"></span> Weight: <span id="weight" class="charData"></span> lbs
+                            </p>
+                        </div>
+                        {{!-- <div class="card-footer">
+                            <a href="" id="reRollBio" class="pull-right"><i class="far fa-dice"></i> Re-Roll</a>
+                        </div> --}}
+                    </div>
+                    <br>
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Homeland</h4>
+                            <h5 id="homelandTitle" class="charData card-subtitle"></h5>
+                            <p id="homelandDesc" class="charData"></p>
+                            <h4 class="card-title">Family</h4>
+                            <h5 class="card-subtitle">Parents</h5>
+                            <p id="parents" class="charData"></p>
+                            <h5 class="card-subtitle">Siblings</h5>
+                            <p id="siblings" class="charData"></p>
+                        </div>
+                        {{!-- <div class="card-footer">
+                            <a href="" id="reRollFamily" class="pull-right"><i class="far fa-dice"></i> Re-Roll</a>
+                        </div> --}}
+                    </div>
+                    <br>
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Class Background</h4>
+                            <h5 id="classBackgroundTitle" class="charData card-subtitle"></h5>
+                            <p id="classBackgroundDesc" class="charData"></p>
+                        </div>
+                        {{!-- <div class="card-footer">
+                            <a href="" id="reRollBackground" class="pull-right"><i class="far fa-dice"></i> Re-Roll</a>
+                        </div> --}}
+                    </div>
+                    <br>
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Circumstance of Birth</h4>
+                            <h5 id="birthTitle" class="charData card-subtitle"></h5>
+                            <p id="birthDesc" class="charData"></p>
+                            <div id="birthExtra" class="invisible extraData">
+                                <hr>
+                                <h5 id="birthExtraTitle" class="charData card-subtitle"></h5>
+                                <p id="birthExtraDesc" class="charData"></p>
+                            </div>
+                        </div>
+                        {{!-- <div class="card-footer">
+                            <a href="" id="reRollBirth" class="pull-right"><i class="far fa-dice"></i> Re-Roll</a>
+                        </div> --}}
+                    </div>
+                    <br>
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Major Childhood Event</h4>
+                            <h5 id="majorEventTitle" class="charData card-subtitle"></h5>
+                            <p id="majorEventDesc" class="charData"></p>
+                            <div id="majorEventExtra" class="invisible extraData">
+                                <hr>
+                                <h5 id="majorEventExtraTitle" class="charData card-subtitle"></h5>
+                                <p id="majorEventExtraDesc" class="charData"></p>
+                            </div>
+                        </div>
+                        {{!-- <div class="card-footer">
+                            <a href="" id="reRollMajorEvent" class="pull-right" onclick="reRoll('majorEvent')"><i class="far fa-dice"></i> Re-Roll</a>
+                        </div> --}}
+                    </div>
+                    <br>
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Conflict <span class="pull-right" id="conflictCP"></span></h4>
+                            <h5 id="conflictTitle" class="charData card-subtitle"></h5>
+                            <p id="conflictDesc" class="charData"></p>
+                            <h5 class="card-subtitle">Subject <span id="conflictSubject" class="charData"></span></h5>
+                            <br>
+                            <h5 class="card-subtitle">Motivation <span id="conflictMotivation" class="charData"></span></h5>
+                            <br>
+                            <h5 class="card-subtitle">Resolution <span id="conflictResolutionTitle" class="charData"></span></h5>
+                            <p id="conflictResolutionDesc" class="charData"></p>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            
+                
+        </div>
+        <div class="col-md-3">
+            <p>To get started, choose a race/class combination on the left and hit Generate. Note, some tables (about 3 small tables) from the Background Generator page have not been implemented yet. 
+                If you wish, you can leave the options set to random to get a completely random character!
+            </p>
+            <p>Heights and Weights are based of racial entries (by-gender) from the PRD. Ages are based off of ranges per race due to class type (IE Wizards are 'trained' thus older, with some exceptions)</p>
+        </div>
+    </div>
+</div>
+{{#extend "js"}}
+<script>
+    var api = decodeURIComponent('{{api}}');
+    var char = {};
+
+    $('#generatorSubmit').on('click', (e) => {
+        //Prevent default action for form
+        e.preventDefault();
+        
+        
+        //Post req
+        
+        char.race = $('#race').val();
+        char.class = $('#class').val();
+        //console.log('Request: ',char);
+        
+        //Perform Post
+        $('#loader').removeClass('invisible');
+        $('#loader').slideDown('fast', getData('full', char));
+        
+    });
+
+    //function reRoll(field) {
+    //    getData(field);
+    //}
+
+    function getData(type, data) {
+        let url = '';
+        switch(type) {
+            case 'full':
+                url = `${api}/generate`;
+                break;
+        }
+
+        $.post(url, data, (result) => {
+            $('#loader').slideUp('fast');
+            console.log(result.char);
+            updateChar(type, result.char);
+        })
+
+    }
+
+    function updateChar(type, char) {
+        $('#outputBox').removeClass('invisible');
+        if(type == 'full'){
+            
+            //Update entire sheet
+            //h2 Race|class
+            //format for pretty display
+            let heightInches = char.race.height;
+            let feet = Math.floor(heightInches/12);
+            let inches = heightInches%12;
+            let height = `${feet}' ${inches}"`;
+
+            $('.charData').text('');
+            $('.extraData').addClass('invisible');
+            
+            $('#outputTitle').text(`${char.race.name} ${char.class.name}`);
+            $('#gender').text(`${char.race.gender.name}`);
+            $('#age').text(`${char.race.age}`);
+            $('#height').text(`${height}`);
+            $('#weight').text(`${char.race.weight}`);
+            $('#homelandTitle').text(`${char.race.homeland.title}`);
+            $('#homelandDesc').text(`${char.race.homeland.description}`);
+            $('#siblings').text(`${char.race.siblings.description}`);
+            $('#parents').text(`${char.race.parents.description}`);
+            $('#classBackgroundTitle').text(`${char.class.background.title}`);
+            $('#classBackgroundDesc').text(`${char.class.background.description}`);
+            $('#birthTitle').text(`${char.birth.title}`);
+            $('#birthDesc').text(`${char.birth.description}`);
+            if(char.birth.table){
+                $('#birthExtra').removeClass('invisible');
+                $('#birthExtraTitle').text(`${char.birth.table.title}`)
+                $('#birthExtraDesc').text(`${char.birth.table.description}`)
+            }
+            $('#majorEventTitle').text(`${char.majorEvent.title}`);
+            $('#majorEventDesc').text(`${char.majorEvent.description}`);
+            if(char.majorEvent.table && (!char.majorEvent.crime)){
+                $('#majorEventExtra').removeClass('invisible');
+                $('#majorEventExtraTitle').text(`${char.majorEvent.table.title}`)
+                $('#majorEventExtraDesc').text(`${char.majorEvent.table.description}`)
+            } else if(char.majorEvent.crime && char.majorEvent.punishment) {
+                $('#majorEventExtra').removeClass('invisible');
+                $('#majorEventExtraDesc').html(`<strong>Crime: </strong>${char.majorEvent.crime.title}<br><strong>Punishment: </strong>${char.majorEvent.punishment.title}`);
+            }
+            $('#conflictTitle').text(`${char.conflict.conflict.title}`);
+            $('#conflictDesc').text(`${char.conflict.conflict.description}`);
+            $('#conflictSubject').text(`${char.conflict.subject.title}`);
+            $('#conflictMotivation').text(`${char.conflict.motivation.title}`);
+            $('#conflictResolutionTitle').text(`${char.conflict.resolution.title}`);
+            $('#conflictResolutionDesc').text(`${char.conflict.resolution.description}`);
+            $('#conflictCP').text(`${char.conflict.totalCP}`);
+            //bio
+              //?height, ?weight, ?age
+              //race description
+              //homeland
+              //parents
+              //siblings
+              //class Background
+              //...other fields when added
+
+            $('#scrollTo')[0].scrollIntoView({behavior: "smooth", block: "start"})
+        } else {
+            //update specific field
+
+        }
+    }
+    
+</script>
+{{/extend}}

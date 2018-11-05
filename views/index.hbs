@@ -1,1 +1,50 @@
-<h1>Hello World!</h1>
+<ul class="bg-slideshow">
+    <li>
+        <span></span>
+    </li>
+    <li>
+        <span></span>
+    </li>
+    <li>
+        <span></span>
+    </li>
+    <li><span></span></li>
+    <li><span></span></li>
+</ul>
+<div class="fullScreen">
+    <div class="contentBox">
+        <h2>Welcome to PF Gen!</h2>
+        <p class="text-center">
+            This is a project inspired by Paizo Publishing's <a href="http://paizo.com/pathfinderRPG/prd/ultimateCampaign/characterBackground/backgroundGenerator.html">Background Generator <i class="fal fa-external-link"></i></a>. You can use this tool to generate random backgrounds for your character with just one button. 
+        </p>
+        <a href="/characters/generate" class="btn btn-primary btn-block">Let's Go!</a>
+        <button id="disclaimer" class="btn btn-link" type="button">
+            Disclaimer
+        </button>
+        <div id="disclaimerBox" class="invisible">
+            <p class="disclaimer text-muted text-center">
+                Paizo Inc., Paizo, Pathfinder, and the Pathfinder logo are registered trademarks of Paizo Inc., and
+                Pathfinder Roleplaying Game and Pathfinder Campaign Setting are trademarks of Paizo Inc. This generator
+                uses content that is provided via <span data-toggle="tooltip" title="Open Game License">OGL</span>.
+                No claim of ownership is intended in regards to content used/output by the generator.
+            </p>
+        </div>
+        
+    </div>
+</div>
+
+{{#extend "js"}}
+<script>
+    $().ready(() => {
+        $('#disclaimerBox').hide();
+    })
+    $('#disclaimer').click(() => {
+        $('#disclaimerBox').toggleClass('invisible');
+        if ($('#disclaimerBox:first').is(':hidden')) {
+            $('#disclaimerBox').slideDown();
+        } else {
+            $('#disclaimerBox').slideUp();
+        }
+    })
+</script>
+{{/extend}}

@@ -1,0 +1,15 @@
+<h2>Races</h2>
+<hr>
+<a href="/admin/races/new" class="btn btn-primary"><i class="far fa-plus"></i> New Race</a>
+<br><br>
+<div class="card">
+    {{#if races}}
+        <ul class="list-group list-group-flush">
+            {{#each races as |race|}}
+                <a href="/admin/race/{{race.url}}" class="list-group-item list-group-item-action">{{race.name}}</a>
+            {{/each}}
+        </ul>
+    {{else}}
+        <p>No Races!</p>
+    {{/if}}
+</div>

@@ -1,2 +1,5 @@
 node_modules/
 conf/
+# FontAwesome Pro
+public/css/fontawesome-all.min.css
+public/webfonts/
