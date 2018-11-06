@@ -11,7 +11,7 @@ router.get('/version', (req, res) => {
 
 router.post('/generate', getClass, getRace, getCircumstanceOfBirth, getChildhoodEvent, getUnusualHomeland, getConflicts, getRomanticRelations, getDrawbacks, getInfluentAssoc, (req, res) => {
     let char = req.char;
-    // console.log(char);
+    //console.log(char);
     res.type('json');
     res.status(200).json({char: char});
 
@@ -131,6 +131,7 @@ function getRaceData(raceName, req) { //need req for access, but cannot set it h
             // console.log('here3')
             // console.log('char1',req.char);
             char.race.age = getRandomNum(race.chargen.ages[req.char.class.ageCategory].ageMin,race.chargen.ages[req.char.class.ageCategory].ageMax)
+            console.log('ages',race.chargen.ages[req.char.class.ageCategory])
             // console.log('chargen data',race.chargen) //Not making it to here, problem in line above
             // console.log(char.race.age)
             // console.log('char',char)
